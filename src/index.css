@@ -10,7 +10,7 @@
   /* typography */
   --text-32: 32px;
   --text-24: 24px;
-  --text-18: 24px;
+  --text-18: 18px;
   --text-14: 14px;
   --text-12: 12px;
   --radius-sm: calc(var(--radius) - 4px);

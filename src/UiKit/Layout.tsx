@@ -11,9 +11,9 @@ const Layout: FC = () => {
       <Toaster />
       <div>
         <Outlet />
-        <div className="absolute top-0 left-0 pointer-events-none opacity-[.3]">
+        {/* <div className="absolute -top-[85px] left-[36px] pointer-events-none opacity-[.3]">
           <img src={bg} alt="index" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
