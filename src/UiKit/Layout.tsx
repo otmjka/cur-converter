@@ -1,19 +1,17 @@
 import type { FC } from 'react';
 import { Outlet } from 'react-router';
 import { Toaster } from '@/components/ui/sonner';
-// import AppHeader from './AppHeader';
-import bg from './index.jpg';
+// import bg from './index.jpg';
 
 const Layout: FC = () => {
   return (
     <div>
-      {/* <AppHeader /> */}
       <Toaster />
       <div>
         <Outlet />
-        <div className="absolute top-0 left-0 pointer-events-none opacity-[.3]">
+        {/* <div className="absolute -top-[85px] left-[36px] pointer-events-none opacity-[.3]">
           <img src={bg} alt="index" />
-        </div>
+        </div> */}
       </div>
     </div>
   );

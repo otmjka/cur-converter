@@ -1,1 +1,0 @@
-export { useApplicationFromContext } from './useApplicationFromContext';
