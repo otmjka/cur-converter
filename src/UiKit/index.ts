@@ -4,5 +4,7 @@ export { default as ConnectStatus } from './ConnectStatus';
 export { default as LastUpdated } from './LastUpdated';
 export { default as RefreshRates } from './RefreshRates';
 export { CurrencySelector } from './Form';
-export { default as CurrencySign } from './CurrencySign';
+export { default as CurrencySign } from './Currency/CurrencySign';
 export { default as SwitchCur } from './SwitchCur';
+
+export { default as CurrencySelectorDialog } from './CurrencySelectorDialog/CurrencySelectorDialog';
