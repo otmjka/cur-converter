@@ -1,4 +1,4 @@
-import { useCallback, type FC } from 'react';
+import { useCallback, useState, type FC } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -13,9 +13,11 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { type ConverterFormValues, converterFormSchema } from '@/types';
 import { Input } from '@/components/ui/input';
-import { CurrencySelector, SwitchCur } from '@/UiKit';
+import { CurrencySelector, CurrencySelectorDialog, SwitchCur } from '@/UiKit';
 
 const ConvertForm: FC = () => {
+  const [currencySelectorDialogOpened, setCurrencySelectorDialogOpened] =
+    useState<boolean>(false);
   const form = useForm<ConverterFormValues>({
     resolver: zodResolver(converterFormSchema),
     defaultValues: {
@@ -29,6 +31,10 @@ const ConvertForm: FC = () => {
     console.log(data);
   }, []);
 
+  const openSelectCurrecyDialog = useCallback((inputId: string) => {
+    console.log(inputId);
+    setCurrencySelectorDialogOpened(true);
+  }, []);
   return (
     <Card className="w-full">
       <Form {...form}>
@@ -57,7 +63,7 @@ const ConvertForm: FC = () => {
                     <FormControl>
                       <CurrencySelector
                         value={field.value}
-                        onChange={field.onChange}
+                        onClick={() => openSelectCurrecyDialog(field.name)}
                       />
                     </FormControl>
                     <FormMessage />
@@ -76,7 +82,7 @@ const ConvertForm: FC = () => {
                     <FormControl>
                       <CurrencySelector
                         value={field.value}
-                        onChange={field.onChange}
+                        onClick={() => openSelectCurrecyDialog(field.name)}
                       />
                     </FormControl>
                     <FormMessage />
@@ -87,6 +93,10 @@ const ConvertForm: FC = () => {
           </CardContent>
         </form>
       </Form>
+      <CurrencySelectorDialog
+        opened={currencySelectorDialogOpened}
+        onOpenChange={setCurrencySelectorDialogOpened}
+      />
     </Card>
   );
 };

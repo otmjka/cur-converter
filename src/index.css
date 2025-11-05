@@ -13,6 +13,24 @@
   --text-18: 18px;
   --text-14: 14px;
   --text-12: 12px;
+  /* colors */
+
+  /* grey */
+  --color-neutral-50: oklch(0.9851 0 0);
+  --color-neutral-300: oklch(0.8699 0 0);
+  --color-neutral-500: oklch(0.5555 0 0);
+  --color-neutral-950: oklch(0.1448 0 0);
+
+  /* blue */
+  --color-blue-50: oklch(0.9705 0.0142 254.6);
+  --color-blue-200: oklch(0.882 0.0588 253.97);
+  --color-blue-700: oklch(0.4878 0.2432 264.4);
+
+  /* green */
+  --color-green-50: oklch(0.9819 0.0181 155.83);
+  --color-green-200: oklch(0.9258 0.0845 155.86);
+  --color-green-700: oklch(0.5296 0.149485 148.9899);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
