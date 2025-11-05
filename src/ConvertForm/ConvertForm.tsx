@@ -10,113 +10,81 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
-import { type ParamsFormData, paramsSchema } from '@/types';
-import { useApplicationFromContext } from '@/ApplicationPage/ApplicationFormContext';
-import { Required } from '@/UiKit';
+import { Card, CardContent } from '@/components/ui/card';
+import { type ConverterFormValues, converterFormSchema } from '@/types';
 import { Input } from '@/components/ui/input';
-
-const converterFormSchema = z.object({
-  amount: z
-    .string()
-    .regex(/^\d*([.,]\d*)?$/, 'Введите корректное число')
-    .transform((val) => parseFloat(val.replace(',', '.')))
-    .refine((val) => !isNaN(val), 'Обязательное поле'),
-});
-
-type ConverterFormValues = z.infer<typeof converterFormSchema>;
+import { CurrencySelector, SwitchCur } from '@/UiKit';
 
 const ConvertForm: FC = () => {
-  const applicationFormCtx = useApplicationFromContext();
-
   const form = useForm<ConverterFormValues>({
     resolver: zodResolver(converterFormSchema),
     defaultValues: {
-      ...applicationFormCtx.paramsForm,
+      amount: '1',
+      base: 'USD',
+      quote: 'EUR',
     },
   });
 
-  const { watch } = form;
-
-  const loanAmount = watch('loanAmount');
-  const loanTerm = watch('loanTerm');
-
-  const onSubmit = useCallback(
-    (data: ParamsFormData) => {
-      applicationFormCtx.updateFormData({ step: 2, data });
-    },
-    [applicationFormCtx],
-  );
-
-  const onPrev = useCallback(() => {
-    applicationFormCtx.onPrevStep({ currentStep: 2, data: form.getValues() });
-  }, [applicationFormCtx, form]);
+  const onSubmit = useCallback((data: ConverterFormValues) => {
+    console.log(data);
+  }, []);
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {/* <CardHeader>
-            <CardTitle>Application Params</CardTitle>
-          </CardHeader> */}
           <CardContent>
             <FormField
               control={form.control}
-              name="firstName"
+              name="amount"
               render={({ field }) => (
                 <FormItem className="relative">
-                  <FormLabel>
-                    First Name
-                    <Required />
-                  </FormLabel>
+                  <FormLabel>Amount</FormLabel>
                   <FormControl>
-                    <Input placeholder="Kaha" {...field} />
+                    <Input placeholder="1000.25" {...field} />
                   </FormControl>
                   <FormMessage className="absolute bottom-[-20px]" />
                 </FormItem>
               )}
             />
+            <div className="flex items-center gap-[12px]">
+              <FormField
+                name="base"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className="mb-5">
+                    <FormLabel htmlFor="">From</FormLabel>
+                    <FormControl>
+                      <CurrencySelector
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* loanTerm */}
+              <SwitchCur />
 
-            {/* <FormField
-              name="loanTerm"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem className="mb-5">
-                  <FormLabel htmlFor="">
-                    Duration: {loanTerm} days
-                    <Required />
-                  </FormLabel>
-                  <FormControl>
-                    <Slider
-                      value={[field.value]}
-                      onValueChange={([value]) => field.onChange(value)}
-                      min={10}
-                      max={30}
-                      step={1}
-                      data-testid="loan-term-slider"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
+              <FormField
+                name="quote"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className="mb-5">
+                    <FormLabel htmlFor="">To</FormLabel>
+                    <FormControl>
+                      <CurrencySelector
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </CardContent>
-          <CardFooter className="gap-2">
-            <Button type="button" onClick={onPrev}>
-              Previous
-            </Button>
-            <Button type="submit">Submit</Button>
-          </CardFooter>
         </form>
       </Form>
     </Card>

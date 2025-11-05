@@ -1,13 +1,11 @@
 import type { FC } from 'react';
 import { Outlet } from 'react-router';
 import { Toaster } from '@/components/ui/sonner';
-// import AppHeader from './AppHeader';
-import bg from './index.jpg';
+// import bg from './index.jpg';
 
 const Layout: FC = () => {
   return (
     <div>
-      {/* <AppHeader /> */}
       <Toaster />
       <div>
         <Outlet />

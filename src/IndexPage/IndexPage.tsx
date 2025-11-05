@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ConnectStatus, LastUpdated, RefreshRates } from '@/UiKit';
 import type { FC } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { ConvertForm } from '@/ConvertForm';
 // font-family: Inter;
 // font-weight: 600;
 // font-style: Semi Bold;
@@ -30,7 +31,9 @@ const IndexPage: FC = () => {
           </div>
         </div>
         <div className="flex gap-[30px]">
-          <Card className="w-[614px] h-[193px]">!!!</Card>
+          <div className="w-[614px] h-[193px]">
+            <ConvertForm />
+          </div>
           <Card className="w-[336px] h-[318px] py-[20px]">
             <CardContent className="px-[20px]">
               <div className="text-18 leading-[22px] font-semibold mb-[24px]">
