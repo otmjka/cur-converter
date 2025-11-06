@@ -1,6 +1,4 @@
-import { useCallback, useState, type FC } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { type FC } from 'react';
 
 import {
   Form,
@@ -11,59 +9,24 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Card, CardContent } from '@/components/ui/card';
-import { type ConverterFormValues, converterFormSchema } from '@/types';
+
 import { CurrencySelector, CurrencySelectorDialog, SwitchCur } from '@/UiKit';
 import { AmountInput } from '@/UiKit/Form';
+import useConvertFormController from './useConvertFormController';
+import type { ConvertFormState } from '@/shared/types';
 
-const ConvertForm: FC = () => {
-  const [currencySelectorDialogOpened, setCurrencySelectorDialogOpened] =
-    useState<boolean>(false);
-  const [dialogSelectedCurrency, setDialogSelectedCurrency] =
-    useState<string>('');
-
-  const [selectedInputId, setSelectedInputId] = useState<string>();
-
-  const form = useForm<ConverterFormValues>({
-    resolver: zodResolver(converterFormSchema),
-    mode: 'onChange',
-    defaultValues: {
-      amount: '1',
-      base: 'USD',
-      quote: 'EUR',
-    },
+const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
+  const {
+    form,
+    onSubmit,
+    openSelectCurrecyDialog,
+    dialogSelectedCurrency,
+    currencySelectorDialogOpened,
+    setCurrencySelectorDialogOpened,
+    onChangeCurrencyValue,
+  } = useConvertFormController({
+    onChange: state.onChange,
   });
-
-  const { watch } = form;
-
-  const baseValue = watch('base');
-  const quoteValue = watch('quote');
-
-  const onSubmit = useCallback((data: ConverterFormValues) => {
-    console.log(data);
-  }, []);
-
-  const openSelectCurrecyDialog = useCallback(
-    (inputId: string) => {
-      setSelectedInputId(inputId);
-      setCurrencySelectorDialogOpened(true);
-      setDialogSelectedCurrency(inputId === 'base' ? baseValue : quoteValue);
-    },
-    [baseValue, quoteValue],
-  );
-
-  const onChangeCurrencyValue = useCallback(
-    (selectedCurrency: string) => {
-      switch (selectedInputId) {
-        case 'base':
-          form.setValue('base', selectedCurrency, { shouldValidate: true });
-          return;
-        case 'quote':
-          form.setValue('quote', selectedCurrency, { shouldValidate: true });
-          return;
-      }
-    },
-    [form, selectedInputId],
-  );
 
   return (
     <Card className="w-full py-[20px]">
