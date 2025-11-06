@@ -12,8 +12,8 @@ import {
 } from '@/components/ui/form';
 import { Card, CardContent } from '@/components/ui/card';
 import { type ConverterFormValues, converterFormSchema } from '@/types';
-import { Input } from '@/components/ui/input';
 import { CurrencySelector, CurrencySelectorDialog, SwitchCur } from '@/UiKit';
+import { AmountInput } from '@/UiKit/Form';
 
 const ConvertForm: FC = () => {
   const [currencySelectorDialogOpened, setCurrencySelectorDialogOpened] =
@@ -25,6 +25,7 @@ const ConvertForm: FC = () => {
 
   const form = useForm<ConverterFormValues>({
     resolver: zodResolver(converterFormSchema),
+    mode: 'onChange',
     defaultValues: {
       amount: '1',
       base: 'USD',
@@ -65,18 +66,20 @@ const ConvertForm: FC = () => {
   );
 
   return (
-    <Card className="w-full">
+    <Card className="w-full py-[20px]">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <CardContent>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <CardContent className="px-[20px]">
             <FormField
               control={form.control}
               name="amount"
               render={({ field }) => (
-                <FormItem className="relative">
-                  <FormLabel>Amount</FormLabel>
+                <FormItem className="relative mb-[24px]">
+                  <FormLabel className="!text-12 font-semibold">
+                    Amount
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="1000.25" {...field} />
+                    <AmountInput {...field} />
                   </FormControl>
                   <FormMessage className="absolute bottom-[-20px]" />
                 </FormItem>
@@ -87,7 +90,7 @@ const ConvertForm: FC = () => {
                 name="base"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="mb-5">
+                  <FormItem>
                     <FormLabel htmlFor="">From</FormLabel>
                     <FormControl>
                       <CurrencySelector
@@ -106,7 +109,7 @@ const ConvertForm: FC = () => {
                 name="quote"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="mb-5">
+                  <FormItem>
                     <FormLabel htmlFor="">To</FormLabel>
                     <FormControl>
                       <CurrencySelector
