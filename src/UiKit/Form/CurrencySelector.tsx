@@ -15,7 +15,7 @@ const CurrencySelector: FC<{
       border
       border-neutral-300
       bg-neutral-50
-    hover:bg-neutral-300"
+    hover:bg-blue-200"
       type="button"
       onClick={onClick}
     >
