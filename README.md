@@ -5,6 +5,7 @@
 
 inter font
 TODO: optimize
+TODO: make as default color 950
 
 12px
 #737373 neutral/500
