@@ -24,6 +24,7 @@
   /* blue */
   --color-blue-50: oklch(0.9705 0.0142 254.6);
   --color-blue-200: oklch(0.882 0.0588 253.97);
+  --color-blue-400: oklch(0.704 0.1583 253.63);
   --color-blue-700: oklch(0.4878 0.2432 264.4);
 
   /* green */

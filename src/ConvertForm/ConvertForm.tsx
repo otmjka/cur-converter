@@ -18,6 +18,11 @@ import { CurrencySelector, CurrencySelectorDialog, SwitchCur } from '@/UiKit';
 const ConvertForm: FC = () => {
   const [currencySelectorDialogOpened, setCurrencySelectorDialogOpened] =
     useState<boolean>(false);
+  const [dialogSelectedCurrency, setDialogSelectedCurrency] =
+    useState<string>('');
+
+  const [selectedInputId, setSelectedInputId] = useState<string>();
+
   const form = useForm<ConverterFormValues>({
     resolver: zodResolver(converterFormSchema),
     defaultValues: {
@@ -27,14 +32,38 @@ const ConvertForm: FC = () => {
     },
   });
 
+  const { watch } = form;
+
+  const baseValue = watch('base');
+  const quoteValue = watch('quote');
+
   const onSubmit = useCallback((data: ConverterFormValues) => {
     console.log(data);
   }, []);
 
-  const openSelectCurrecyDialog = useCallback((inputId: string) => {
-    console.log(inputId);
-    setCurrencySelectorDialogOpened(true);
-  }, []);
+  const openSelectCurrecyDialog = useCallback(
+    (inputId: string) => {
+      setSelectedInputId(inputId);
+      setCurrencySelectorDialogOpened(true);
+      setDialogSelectedCurrency(inputId === 'base' ? baseValue : quoteValue);
+    },
+    [baseValue, quoteValue],
+  );
+
+  const onChangeCurrencyValue = useCallback(
+    (selectedCurrency: string) => {
+      switch (selectedInputId) {
+        case 'base':
+          form.setValue('base', selectedCurrency, { shouldValidate: true });
+          return;
+        case 'quote':
+          form.setValue('quote', selectedCurrency, { shouldValidate: true });
+          return;
+      }
+    },
+    [form, selectedInputId],
+  );
+
   return (
     <Card className="w-full">
       <Form {...form}>
@@ -94,8 +123,10 @@ const ConvertForm: FC = () => {
         </form>
       </Form>
       <CurrencySelectorDialog
+        currentValue={dialogSelectedCurrency}
         opened={currencySelectorDialogOpened}
         onOpenChange={setCurrencySelectorDialogOpened}
+        onSetValue={onChangeCurrencyValue}
       />
     </Card>
   );

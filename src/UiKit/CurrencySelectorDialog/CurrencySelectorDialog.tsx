@@ -10,12 +10,13 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import CommandInput from './CommandInput';
 import { currenciesData, ratesData2 } from '@/mocks/rates';
 import CurrencyLabel from '../Currency/CurrencyLabel';
+import { Check } from 'lucide-react';
 
 const items = Object.keys(ratesData2.rates);
 const itemsSub = items.map((itemKey) => {
@@ -30,12 +31,14 @@ const itemsSub = items.map((itemKey) => {
 });
 
 const CurrencySelectorDialog: FC<{
+  currentValue: string;
   opened: boolean;
+  onSetValue: (value: string) => void;
   onOpenChange: (value: boolean) => void;
-}> = ({ opened, onOpenChange }) => {
+}> = ({ currentValue, opened, onSetValue, onOpenChange }) => {
   return (
     <Dialog open={opened} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="p-[16px]">
         <DialogHeader>
           <DialogTitle>Select currency</DialogTitle>
           <DialogDescription>
@@ -43,18 +46,33 @@ const CurrencySelectorDialog: FC<{
             a specific currency.
           </DialogDescription>
         </DialogHeader>
-        <Command>
+        <Command className="[&_[cmdk-input-wrapper]]:border-b-0">
           <CommandInput placeholder="Type a command or search..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
+            <CommandGroup>
               {itemsSub.map((item) => (
-                <CommandItem key={item.key}>
-                  <CurrencyLabel
-                    currency={item.key}
-                    title={item.key}
-                    sub={item.currency}
-                  />
+                <CommandItem
+                  key={item.key}
+                  onSelect={() => {
+                    onSetValue(item.key);
+                    onOpenChange(false);
+                  }}
+                >
+                  <div className="flex w-full items-center">
+                    <div className="grow-1">
+                      <CurrencyLabel
+                        currency={item.key}
+                        title={item.key}
+                        sub={item.currency}
+                      />
+                    </div>
+                    {item.key === currentValue && (
+                      <div>
+                        <Check className="text-blue-400" />
+                      </div>
+                    )}
+                  </div>
                 </CommandItem>
               ))}
             </CommandGroup>
