@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import { Layout } from '@/UiKit';
 
-import IndexPage from './IndexPage';
+import IndexPage from './pages/IndexPage';
 
 const appRouter = createBrowserRouter(
   [
@@ -12,7 +12,7 @@ const appRouter = createBrowserRouter(
     },
   ],
   {
-    basename: import.meta.env.BASE_URL, // ✅ используем base из Vite config
+    basename: import.meta.env.BASE_URL,
   },
 );
 

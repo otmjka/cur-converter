@@ -32,6 +32,9 @@
   --color-green-200: oklch(0.9258 0.0845 155.86);
   --color-green-700: oklch(0.5296 0.149485 148.9899);
 
+  /* responsive */
+  --breakpoint-xs: 30rem;
+  /*  */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
