@@ -7,11 +7,13 @@ import useCurrencyExchanger from './useCurrencyExchanger';
 const CurrencyExchanger: FC = () => {
   const state = useCurrencyExchanger({});
   return (
-    <div className="flex gap-[30px]">
-      <div className="w-[614px] h-[193px]">
+    <div className="grid grid-cols-1 lg:grid-cols-[614px_auto] gap-[30px] items-start">
+      <div className="sm:w-[614px]">
         <ConvertForm state={state.convertForm} />
       </div>
-      <ResultWidget state={state.resultWidget} />
+      <div className="flex justify-center lg:justify-start">
+        <ResultWidget state={state.resultWidget} />
+      </div>
     </div>
   );
 };

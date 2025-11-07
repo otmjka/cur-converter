@@ -9,11 +9,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Card, CardContent } from '@/components/ui/card';
-
+import type { ConvertFormState } from '@/shared/types';
 import { CurrencySelector, CurrencySelectorDialog, SwitchCur } from '@/UiKit';
 import { AmountInput } from '@/UiKit/Form';
 import useConvertFormController from './useConvertFormController';
-import type { ConvertFormState } from '@/shared/types';
 
 const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
   const {
@@ -48,12 +47,12 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-[12px]">
+            <div className="flex flex-col xs:flex-row xs:gap-[12px] items-center">
               <FormField
                 name="base"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex-1 w-full xs:w-auto">
                     <FormLabel htmlFor="">From</FormLabel>
                     <FormControl>
                       <CurrencySelector
@@ -65,14 +64,12 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
                   </FormItem>
                 )}
               />
-
               <SwitchCur />
-
               <FormField
                 name="quote"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex-1 w-full xs:w-auto">
                     <FormLabel htmlFor="">To</FormLabel>
                     <FormControl>
                       <CurrencySelector

@@ -9,13 +9,7 @@ const CurrencySelector: FC<{
 }> = ({ value, onClick }) => {
   return (
     <Button
-      className="w-[254px] h-[42px]
-      px-[8px]
-      py-[6px]
-      border
-      border-neutral-300
-      bg-neutral-50
-    hover:bg-blue-200"
+      className="flex-1 bg-neutral-50 sm:w-[254px] h-[42px] px-[8px] py-[6px] border border-neutral-300 hover:bg-blue-200"
       type="button"
       onClick={onClick}
     >
