@@ -2,6 +2,7 @@ import type { ConverterFormValues } from '@/types';
 import type { UseFormReturn } from 'react-hook-form';
 
 type UseConvertFormControllerParams = {
+  value: ConverterFormValues;
   onChange?: (data: ConverterFormValues) => void;
 };
 

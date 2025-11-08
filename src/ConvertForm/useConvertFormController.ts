@@ -4,7 +4,10 @@ import { useForm } from 'react-hook-form';
 import { type ConverterFormValues, converterFormSchema } from '@/types';
 import type { UseConvertFormController } from './type';
 
-const useConvertFormController: UseConvertFormController = ({ onChange }) => {
+const useConvertFormController: UseConvertFormController = ({
+  value,
+  onChange,
+}) => {
   const [currencySelectorDialogOpened, setCurrencySelectorDialogOpened] =
     useState<boolean>(false);
   const [dialogSelectedCurrency, setDialogSelectedCurrency] =
@@ -15,11 +18,7 @@ const useConvertFormController: UseConvertFormController = ({ onChange }) => {
   const form = useForm<ConverterFormValues>({
     resolver: zodResolver(converterFormSchema),
     mode: 'onChange',
-    defaultValues: {
-      amount: '1',
-      base: 'USD',
-      quote: 'EUR',
-    },
+    defaultValues: value,
   });
 
   const { watch, trigger } = form;
