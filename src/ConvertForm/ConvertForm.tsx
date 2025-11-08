@@ -24,6 +24,7 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
     setCurrencySelectorDialogOpened,
     onChangeCurrencyValue,
   } = useConvertFormController({
+    value: state.value,
     onChange: state.onChange,
   });
 

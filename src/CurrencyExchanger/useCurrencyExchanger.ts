@@ -1,47 +1,57 @@
 import { useCallback, useState } from 'react';
-import { type UseCurrencyExchanger } from './types';
+import type { UseCurrencyExchanger } from './types';
 import type { ConverterFormValues } from '@/types';
+import { useCurrencyRate } from './useCurrencyRate';
 
-const useCurrencyExchanger: UseCurrencyExchanger = () => {
-  const [result, setResult] = useState<string>('%%%');
+const useCurrencyExchanger: UseCurrencyExchanger = ({ pair }) => {
+  const currencyRate = useCurrencyRate({ pair });
 
-  const getRates = async ({ base, quote }: { base: string; quote: string }) => {
-    try {
-      const response = await fetch(
-        `https://api.fxratesapi.com/latest?base=${base}&currencies=${quote}&resolution=1m&amount=1&places=6&format=json`,
-      );
-      const data = await response.json();
-      console.log('--->--->--->', data);
-      return { data };
-    } catch (error) {
-      return { error };
-    }
-  };
+  const [formValue, setFormValue] = useState<ConverterFormValues>({
+    base: pair.base,
+    quote: pair.quote,
+    amount: '2',
+  });
 
-  const onChangeHandler = useCallback(async (values: ConverterFormValues) => {
-    console.log('!!!', values);
-    const { base, quote } = values;
-    const result = await getRates({ base, quote });
+  const { rate } = currencyRate;
 
-    if (result.error || !result.data || !result.data.rates[quote]) {
-      console.error(result.error, !result.data, !result.data.rates[quote]);
-      return;
-    }
+  // form value changed
+  const onChangeHandler = useCallback(
+    async (values: ConverterFormValues) => {
+      // TODO: debounce, validation
+      // move to helper
+      if (
+        values.amount === formValue.amount &&
+        values.base === formValue.base &&
+        values.quote === formValue.quote
+      ) {
+        return;
+      }
+      console.log('!!!', values, formValue);
+      setFormValue(values);
+    },
+    [formValue],
+  );
 
-    const rate = result.data.rates[quote];
+  // 1(eur)/1(usd) = 1.08 = k. base/quote = k; k = rate
+  // quote = base / k
+  // 1(USD) = (1 / k)(EUR) =  (1 / 1.08)(EUR) = 0,92592593(EUR)
 
-    // 1 * base = rate * quote
-
-    console.log('result:::', quote, rate, base);
-    setResult(`${rate * +values.amount}`);
-  }, []);
+  // base = k * quote
+  // EUR = USD * k = (1 * 1.08)(USD) = 1.08(USD)
+  const amount = parseFloat(formValue.amount);
+  const result = rate ? rate * amount : ``;
 
   return {
     convertForm: {
+      value: formValue,
       onChange: onChangeHandler,
     },
     resultWidget: {
-      result: result,
+      result: result ? result.toFixed(2) : '',
+      base: formValue.base,
+      baseInQuote: rate ? rate.toFixed(6) : '',
+      quote: formValue.quote,
+      quoteInBase: rate ? (1 / rate).toFixed(6) : '',
     },
   };
 };

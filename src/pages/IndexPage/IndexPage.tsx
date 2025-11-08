@@ -1,9 +1,11 @@
 import type { FC } from 'react';
 
 import { ConnectStatus, H1, LastUpdated, RefreshRates } from '@/UiKit';
-import { CurrencyExchanger } from '@/CurrencyExchanger';
+import { CurrencyExchanger, type RateKey } from '@/CurrencyExchanger';
+import { useRouteLoaderData } from 'react-router';
 
 const IndexPage: FC = () => {
+  const data = useRouteLoaderData<{ pair: RateKey }>('index-page');
   return (
     <div className="flex h-screen sm:items-center sm:justify-center">
       <div className="p-[10px] w-full sm:w-auto">
@@ -20,7 +22,8 @@ const IndexPage: FC = () => {
             <RefreshRates />
           </div>
         </div>
-        <CurrencyExchanger />
+        {data?.pair && <CurrencyExchanger state={{ initPair: data.pair }} />}
+        {!data?.pair && 'loading...'}
       </div>
     </div>
   );
