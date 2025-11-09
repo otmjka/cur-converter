@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import type { UseCurrencyExchanger } from './types';
-import type { ConverterFormValues } from '@/types';
+import type { ConverterFormValues } from '@/widgets/ConvertForm';
 import { useCurrencyRate } from '@/shared/store/useCurrencyRate';
 
 const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {

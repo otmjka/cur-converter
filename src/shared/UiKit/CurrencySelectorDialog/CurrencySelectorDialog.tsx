@@ -1,22 +1,24 @@
 import type { FC } from 'react';
+import { Check } from 'lucide-react';
+
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/shared/components/ui/dialog';
+
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
-import CommandInput from './CommandInput';
-import { currenciesData, ratesData2 } from '@/mocks/rates';
+} from '@/shared/components/ui/command';
+import { currenciesData, ratesData2 } from '@/tests/mocks/rates';
 import CurrencyLabel from '../Currency/CurrencyLabel';
-import { Check } from 'lucide-react';
+import CommandInput from './CommandInput';
 
 const items = Object.keys(ratesData2.rates);
 const itemsSub = items.map((itemKey) => {

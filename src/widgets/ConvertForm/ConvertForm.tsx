@@ -7,12 +7,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Card, CardContent } from '@/components/ui/card';
-import type { ConvertFormState } from '@/shared/types';
-import { CurrencySelector, CurrencySelectorDialog, SwitchCur } from '@/UiKit';
-import { AmountInput } from '@/UiKit/Form';
+} from '@/shared/components/ui/form';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import {
+  CurrencySelector,
+  CurrencySelectorDialog,
+  SwitchCur,
+} from '@/shared/UiKit';
+import { AmountInput } from '@/shared/UiKit/Form';
+
 import useConvertFormController from './useConvertFormController';
+import type { ConvertFormState } from './types';
 
 const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
   const {

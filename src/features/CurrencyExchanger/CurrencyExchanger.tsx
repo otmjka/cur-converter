@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import type { RateKey } from '@/shared/types';
+import type { RateKey } from '@/shared/types/types';
 
 import { ConvertForm } from '@/widgets/ConvertForm';
 import { ResultWidget } from '@/widgets/ResultWidget';

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { ConnectStatus, H1, LastUpdated, RefreshRates } from '@/UiKit';
+import { ConnectStatus, H1, LastUpdated, RefreshRates } from '@/shared/UiKit';
 import { useCurrencyPair } from '@/shared/store/useCurrencyPair';
 import { CurrencyExchanger } from '@/features/CurrencyExchanger';
 

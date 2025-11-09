@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 
-import { Layout } from '@/UiKit';
+import { Layout } from '@/shared/UiKit';
 
 import { indexPageRoute } from '../pages/IndexPage';
 
