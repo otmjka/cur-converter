@@ -1,6 +1,57 @@
 `npm i`
 `npm run dev`
 
+## Structure
+
+Used the [Feature-Sliced Design](https://feature-sliced.design/) an architectural methodology
+
+```
+├── src
+│   ├── App
+│   ├── pages
+│   ├── features
+│   ├── widgets
+│   └── shared
+
+│   ├── tests
+│   ├── vite-env.d.ts
+│   ├── index.css
+│   ├── main.tsx
+
+
+
+├── shared
+│   │   ├── UiKit
+│   │   ├── api
+│   │   ├── components ! shadcn
+│   │   ├── lib ! shadcn
+│   │   ├── queryClient -> config
+│   │   ├── store +
+│   │   └── types +
+
+```
+
+TODO: remove
+
+```
+├── src
+│   ├── App
+│   ├── pages
+│   ├── features
+│   ├── widgets
+│   └── shared
+│   ├── __tests__
+│   ├── UiKit -> TODO: move to shared/UiKit
+│   ├── components -> TODO: move to shared/components/ui
+│   ├── index.css
+│   ├── lib -> TODO: move to shared/lib
+│   ├── main.tsx
+│   ├── mocks
+│   ├── setupTests.ts
+│   ├── types.ts
+│   ├── vite-env.d.ts
+```
+
 ## change log
 
 inter font

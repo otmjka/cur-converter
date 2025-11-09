@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import type { ResultWidgetState } from '@/shared/types';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Separator } from '@/shared/components/ui/separator';
+import type { ResultWidgetState } from './types';
 
 const ResultWidget: FC<{ state: ResultWidgetState }> = ({ state }) => {
   return (

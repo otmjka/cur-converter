@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { type ConverterFormValues, converterFormSchema } from '@/types';
-import type { UseConvertFormController } from './type';
+import { type ConverterFormValues } from './types';
+import { converterFormSchema } from './validation';
+import type { UseConvertFormController } from './types';
 
 const useConvertFormController: UseConvertFormController = ({
   value,

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { PAIR_KEY } from './keys';
-import type { RateKey } from '../types';
+import type { RateKey } from '../types/types';
 
 const DEFAULT_PAIR = { base: 'USD', quote: 'EUR' };
 

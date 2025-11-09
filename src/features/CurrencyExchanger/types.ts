@@ -1,8 +1,7 @@
-import type {
-  ConvertFormState,
-  RateKey,
-  ResultWidgetState,
-} from '@/shared/types';
+import type { RateKey } from '@/shared/types';
+import type { ConvertFormState } from '@/widgets/ConvertForm';
+
+import type { ResultWidgetState } from '@/widgets/ResultWidget';
 
 /* UseCurrencyExchanger */
 type UseCurrencyExchangerParams = {
