@@ -14,9 +14,12 @@ const ResultWidget: FC<{ state: ResultWidgetState }> = ({ state }) => {
         <div className="flex justify-center mb-[24px]">
           <div className="flex flex-col">
             <div className="text-24 leading-[29px] font-bold">
-              {state.result || `€0.92`}
+              {state.quoteSymbol}
+              {state.result}
             </div>
-            <div className="text-12">1 {state.base} =</div>
+            <div className="text-12">
+              {state.amountBase} {state.base} =
+            </div>
           </div>
         </div>
 

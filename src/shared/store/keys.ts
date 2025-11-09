@@ -1,1 +1,4 @@
-export const PAIR_KEY = ['current-pair'];
+export const storageKeys = {
+  pairKey: ['current-pair'],
+  currenciesInfo: ['currencies-info'],
+};

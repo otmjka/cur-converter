@@ -11,7 +11,7 @@ const IndexPage: FC = () => {
   return (
     <Parts.Box>
       <div className="mb-[30px]">
-        <H1 children="Currency converter" />
+        <H1 data-testid="cc-h1" children="Currency converter" />
         <div className="mt-[10px] font-inter text-center text-14 tracking-tight text-balance text-neutral-500 leading-[17px]">
           Get real-time exchange rates
         </div>

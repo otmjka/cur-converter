@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { PAIR_KEY } from './keys';
 import type { RateKey } from '../types/types';
+import { storageKeys } from './keys';
 
 const DEFAULT_PAIR = { base: 'USD', quote: 'EUR' };
 
@@ -8,7 +8,7 @@ export const useCurrencyPair = () => {
   const queryClient = useQueryClient();
 
   const { data: pair } = useQuery({
-    queryKey: PAIR_KEY,
+    queryKey: storageKeys.pairKey,
     queryFn: async () => DEFAULT_PAIR,
     staleTime: Infinity,
   });
@@ -17,7 +17,7 @@ export const useCurrencyPair = () => {
     mutationKey: ['set-currency-pair'],
     mutationFn: async (newPair: RateKey): Promise<RateKey> => newPair,
     onSuccess: (newPair) => {
-      queryClient.setQueryData(PAIR_KEY, newPair);
+      queryClient.setQueryData(storageKeys.pairKey, newPair);
     },
   });
 

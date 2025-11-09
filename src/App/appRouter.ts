@@ -4,17 +4,16 @@ import { Layout } from '@/shared/UiKit';
 
 import { indexPageRoute } from '../pages/IndexPage';
 
-const appRouter = createBrowserRouter(
-  [
-    {
-      path: '/',
-      Component: Layout,
-      children: [indexPageRoute],
-    },
-  ],
+export const appRoutes = [
   {
-    basename: import.meta.env.BASE_URL,
+    path: '/',
+    Component: Layout,
+    children: [indexPageRoute],
   },
-);
+];
+
+const appRouter = createBrowserRouter(appRoutes, {
+  basename: import.meta.env.BASE_URL,
+});
 
 export default appRouter;

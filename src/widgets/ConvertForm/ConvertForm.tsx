@@ -63,6 +63,8 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
                     <FormControl>
                       <CurrencySelector
                         value={field.value}
+                        title={state.baseInfo?.name || ''}
+                        symbol={state.baseInfo?.symbol || ''}
                         onClick={() => openSelectCurrecyDialog(field.name)}
                       />
                     </FormControl>
@@ -80,6 +82,8 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
                     <FormControl>
                       <CurrencySelector
                         value={field.value}
+                        title={state.quoteInfo?.name || ''}
+                        symbol={state.quoteInfo?.symbol || ''}
                         onClick={() => openSelectCurrecyDialog(field.name)}
                       />
                     </FormControl>
@@ -92,6 +96,7 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
         </form>
       </Form>
       <CurrencySelectorDialog
+        items={state.currencySelectDialogItems}
         currentValue={dialogSelectedCurrency}
         opened={currencySelectorDialogOpened}
         onOpenChange={setCurrencySelectorDialogOpened}

@@ -16,28 +16,18 @@ import {
   CommandItem,
   CommandList,
 } from '@/shared/components/ui/command';
-import { currenciesData, ratesData2 } from '@/tests/mocks/rates';
+
 import CurrencyLabel from '../Currency/CurrencyLabel';
 import CommandInput from './CommandInput';
-
-const items = Object.keys(ratesData2.rates);
-const itemsSub = items.map((itemKey) => {
-  const dictItem = currenciesData.find(
-    (dictItem) => dictItem.abbreviation === itemKey,
-  );
-  return {
-    key: itemKey,
-    currency: dictItem?.currency || '-',
-    symbol: dictItem?.symbol || '-',
-  };
-});
+import type { CurrencySelectorItems } from '@/shared/types';
 
 const CurrencySelectorDialog: FC<{
+  items: CurrencySelectorItems;
   currentValue: string;
   opened: boolean;
   onSetValue: (value: string) => void;
   onOpenChange: (value: boolean) => void;
-}> = ({ currentValue, opened, onSetValue, onOpenChange }) => {
+}> = ({ currentValue, opened, items, onSetValue, onOpenChange }) => {
   return (
     <Dialog open={opened} onOpenChange={onOpenChange}>
       <DialogContent className="p-[16px]">
@@ -53,7 +43,7 @@ const CurrencySelectorDialog: FC<{
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              {itemsSub.map((item) => (
+              {items.map((item) => (
                 <CommandItem
                   key={item.key}
                   onSelect={() => {
@@ -64,9 +54,9 @@ const CurrencySelectorDialog: FC<{
                   <div className="flex w-full items-center">
                     <div className="grow-1">
                       <CurrencyLabel
-                        currency={item.key}
                         title={item.key}
-                        sub={item.currency}
+                        sub={item.title}
+                        symbol={item.symbol}
                       />
                     </div>
                     {item.key === currentValue && (

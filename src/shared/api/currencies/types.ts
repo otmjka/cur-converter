@@ -9,9 +9,9 @@ export type RatesResponse = {
 export type CurrencyInfo = {
   code: string; // 'AFN',
   name: string; // 'Afghan Afghani',
-  decimal_digits: 0;
+  decimal_digits: number;
   name_plural: string; // 'Afghan Afghanis',
-  rounding: 0;
+  rounding: number;
   symbol: string; // 'Af',
   symbol_native: string; // '؋',
 };

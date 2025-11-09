@@ -1,9 +1,19 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { UseCurrencyExchanger } from './types';
 import type { ConverterFormValues } from '@/widgets/ConvertForm';
 import { useCurrencyRate } from '@/shared/store/useCurrencyRate';
+import { useCurrenciesInfo } from '@/shared/store/useCurrenciesInfo';
+import { currencySelectorMapper } from './currencySelectorMapper';
+import { getCurrencyInfo } from './getCurrencyInfo';
 
 const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {
+  const currenciesInfo = useCurrenciesInfo();
+
+  const currencySelectDialogItems = useMemo(
+    () => currencySelectorMapper(currenciesInfo?.currencyInfoList),
+    [currenciesInfo],
+  );
+
   const currencyRate = useCurrencyRate({ pair });
 
   const [formValue, setFormValue] = useState<ConverterFormValues>({
@@ -46,16 +56,31 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {
   const amount = parseFloat(formValue.amount);
   const result = rate ? rate * amount : ``;
 
+  const baseInfo = getCurrencyInfo(
+    currenciesInfo?.currencyInfoList,
+    formValue.base,
+  );
+  const quoteInfo = getCurrencyInfo(
+    currenciesInfo?.currencyInfoList,
+    formValue.quote,
+  );
+  const quoteSymbol = quoteInfo?.symbol || '.';
   return {
     convertForm: {
+      currencySelectDialogItems,
+      baseInfo,
+
+      quoteInfo,
       value: formValue,
       onChange: onChangeHandler,
     },
     resultWidget: {
       result: result ? result.toFixed(2) : '',
+      amountBase: formValue.amount,
       base: formValue.base,
       baseInQuote: rate ? rate.toFixed(6) : '',
       quote: formValue.quote,
+      quoteSymbol,
       quoteInBase: rate ? (1 / rate).toFixed(6) : '',
     },
   };

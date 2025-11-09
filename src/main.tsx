@@ -4,4 +4,8 @@ import { App } from './App';
 
 import './App/index.css';
 
-createRoot(document.getElementById('root')!).render(<App />);
+import appRouter from './App/appRouter';
+
+createRoot(document.getElementById('root')!).render(
+  <App appRouter={appRouter} />,
+);
