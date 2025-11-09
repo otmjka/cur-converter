@@ -1,0 +1,1 @@
+export { useCurrenciesInfo } from './useCurrenciesInfo';

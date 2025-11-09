@@ -19,7 +19,11 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+      "@/components/ui/*": ["./src/shared/components/ui/*"],
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["vite.config.ts"]
 }

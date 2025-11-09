@@ -6,9 +6,9 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 
 import { queryClient, localStoragePersister } from '@/shared/queryClient';
 
-import appRouter from './appRouter';
-
-const App: FC = () => {
+const App: FC<{
+  appRouter: Parameters<typeof RouterProvider>[0]['router'];
+}> = ({ appRouter }) => {
   return (
     <StrictMode>
       <PersistQueryClientProvider
