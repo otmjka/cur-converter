@@ -1,13 +1,15 @@
 import type { FC } from 'react';
 
-import { ConnectStatus, H1, LastUpdated, RefreshRates } from '@/shared/UiKit';
+import { H1 } from '@/shared/UiKit';
 import { useCurrencyPair } from '@/shared/store/useCurrencyPair';
 import { CurrencyExchanger } from '@/features/CurrencyExchanger';
 
 import * as Parts from './IndexPage.parts';
+import { StatusWidget } from '@/widgets/StatusWidget';
 
 const IndexPage: FC = () => {
   const { pair, setPair } = useCurrencyPair();
+
   return (
     <Parts.Box>
       <div className="mb-[30px]">
@@ -16,13 +18,8 @@ const IndexPage: FC = () => {
           Get real-time exchange rates
         </div>
       </div>
-      <div className="flex flex-col items-center xs:flex-row mb-[30px] xs:justify-center gap-[16px] xs:h-[23px]">
-        <ConnectStatus isOnline={true} />
-        <LastUpdated />
-        <div>
-          <RefreshRates />
-        </div>
-      </div>
+      {pair && <StatusWidget pair={pair} />}
+
       {pair && <CurrencyExchanger state={{ initPair: pair, setPair }} />}
       {!pair && 'loading...'}
     </Parts.Box>

@@ -17,15 +17,17 @@ const ResultWidget: FC<{ state: ResultWidgetState }> = ({ state }) => {
               {state.quoteSymbol}
               {state.result}
             </div>
-            <div className="text-12">
-              {state.amountBase} {state.base} =
+            <div className="text-12 flex justify-center">
+              <div>
+                {state.amountBase} {state.base} =
+              </div>
             </div>
           </div>
         </div>
 
         <Separator className="mb-[24px]" />
         <div className="mb-[24px]">
-          <div className="flex">
+          <div className="flex mb-[4px]">
             <div className="text-12 flex-1 text-neutral-500 font-semibold">
               Exchange Rate
             </div>
@@ -44,7 +46,7 @@ const ResultWidget: FC<{ state: ResultWidgetState }> = ({ state }) => {
         </div>
         <Separator className="mb-[24px]" />
         <Card className="text-12 py-[8px] bg-neutral-50 border-0 shadow-none">
-          <CardContent className="px-[12px]">
+          <CardContent className="px-[12px] text-center">
             Rates are for informational purposes only and may not reflect
             real-time market rates
           </CardContent>

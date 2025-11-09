@@ -10,15 +10,18 @@ const ConnectStatus: FC<{ isOnline: boolean }> = ({ isOnline }) => {
             variant="secondary"
             className="bg-green-50 border-green-200 rounded-[8px] text-white dark:bg-blue-600"
           >
-            <Wifi size={12} className="text-green-600" />
-            <span className="text-12 text-green-600">Online</span>
+            <Wifi size={12} className="text-green-600" strokeWidth={3} />
+            <span className="text-12 text-green-600 font-semibold">Online</span>
           </Badge>
         )}
         {!isOnline && (
-          <>
-            <WifiOff className="w-5 h-5 text-orange-600" />
-            <span className="text-12 text-orange-600">Offline</span>
-          </>
+          <Badge
+            variant="secondary"
+            className="bg-red-50 border-red-200 rounded-[8px] text-white dark:bg-blue-600"
+          >
+            <WifiOff size={12} className="text-red-500" strokeWidth={3} />
+            <span className="text-12 text-red-500 font-semibold">Offline</span>
+          </Badge>
         )}
       </div>
     </div>

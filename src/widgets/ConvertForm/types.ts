@@ -24,11 +24,11 @@ type UseConvertFormControllerResult = {
   currencySelectorDialogOpened: boolean;
   openSelectCurrecyDialog: (inputId: string) => void;
   form: UseFormReturn<ConverterFormValues>;
-  onSubmit: (data: ConverterFormValues) => void;
   setCurrencySelectorDialogOpened: React.Dispatch<
     React.SetStateAction<boolean>
   >;
   onChangeCurrencyValue: (selectedCurrency: string) => void;
+  onSwapPair: () => void;
 };
 
 export type UseConvertFormController = (

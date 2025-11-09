@@ -36,10 +36,6 @@ const useConvertFormController: UseConvertFormController = ({
     checkValidity();
   }, [formValues, onChange, trigger]);
 
-  const onSubmit = useCallback((data: ConverterFormValues) => {
-    console.log(data);
-  }, []);
-
   const openSelectCurrecyDialog = useCallback(
     (inputId: string) => {
       setSelectedInputId(inputId);
@@ -65,14 +61,20 @@ const useConvertFormController: UseConvertFormController = ({
     [form, selectedInputId],
   );
 
+  const onSwapPair = useCallback(() => {
+    const base = formValues.base;
+    form.setValue('base', formValues.quote);
+    form.setValue('quote', base);
+  }, [form, formValues]);
+
   return {
     dialogSelectedCurrency,
     currencySelectorDialogOpened,
     openSelectCurrecyDialog,
     form,
-    onSubmit,
     setCurrencySelectorDialogOpened,
     onChangeCurrencyValue,
+    onSwapPair,
   };
 };
 

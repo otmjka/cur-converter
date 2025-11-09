@@ -7,12 +7,10 @@ import { useCallback, useMemo } from 'react';
 export const useCurrencyRate: UseCurrencyRate = ({ pair }) => {
   const queryClient = useQueryClient();
 
-  // TODO: queryFetchRatesInterval
-  // TODO:
   const query = useQuery({
     queryKey: useMemo(() => getRateQueryKey(pair), [pair]),
     queryFn: useCallback(() => fetchRates(pair), [pair]),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 24 * 60 * 60 * 1000,
     refetchInterval: 5 * 60 * 1000,
     refetchIntervalInBackground: false,
     retry: 1,
@@ -31,6 +29,7 @@ export const useCurrencyRate: UseCurrencyRate = ({ pair }) => {
   }, [query.data, pair.quote]);
 
   return {
+    responseData: query.data,
     rate: derivedState.rate ?? null,
     isLoading: query.isLoading,
     isError: query.isError,
