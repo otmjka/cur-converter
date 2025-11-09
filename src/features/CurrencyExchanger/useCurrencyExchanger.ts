@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 import type { UseCurrencyExchanger } from './types';
 import type { ConverterFormValues } from '@/types';
-import { useCurrencyRate } from './useCurrencyRate';
+import { useCurrencyRate } from '@/shared/store/useCurrencyRate';
 
-const useCurrencyExchanger: UseCurrencyExchanger = ({ pair }) => {
+const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {
   const currencyRate = useCurrencyRate({ pair });
 
   const [formValue, setFormValue] = useState<ConverterFormValues>({
@@ -26,10 +26,15 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({ pair }) => {
       ) {
         return;
       }
+
+      if (values.base !== formValue.base || values.quote !== formValue.quote) {
+        console.log('save new pair');
+        setPair({ base: values.base, quote: values.quote });
+      }
       console.log('!!!', values, formValue);
       setFormValue(values);
     },
-    [formValue],
+    [formValue, setPair],
   );
 
   // 1(eur)/1(usd) = 1.08 = k. base/quote = k; k = rate

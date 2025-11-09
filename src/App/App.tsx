@@ -6,9 +6,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 
 import { queryClient, localStoragePersister } from '@/shared/queryClient';
 
-import createAppRouter from './createAppRouter.tsx';
-
-const appRouter = createAppRouter({ queryClient });
+import appRouter from './appRouter.tsx';
 
 const App: FC = () => {
   return (
