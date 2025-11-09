@@ -22,12 +22,12 @@ import type { ConvertFormState } from './types';
 const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
   const {
     form,
-    onSubmit,
     openSelectCurrecyDialog,
     dialogSelectedCurrency,
     currencySelectorDialogOpened,
     setCurrencySelectorDialogOpened,
     onChangeCurrencyValue,
+    onSwapPair,
   } = useConvertFormController({
     value: state.value,
     onChange: state.onChange,
@@ -36,7 +36,7 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
   return (
     <Card className="w-full py-[20px]">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form>
           <CardContent className="px-[20px]">
             <FormField
               control={form.control}
@@ -72,7 +72,7 @@ const ConvertForm: FC<{ state: ConvertFormState }> = ({ state }) => {
                   </FormItem>
                 )}
               />
-              <SwitchCur />
+              <SwitchCur onSwapPair={onSwapPair} />
               <FormField
                 name="quote"
                 control={form.control}
