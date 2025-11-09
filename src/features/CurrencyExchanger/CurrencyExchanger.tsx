@@ -1,14 +1,16 @@
 import type { FC } from 'react';
 
-import { ConvertForm } from '@/ConvertForm';
-import { ResultWidget } from '@/ResultWidget';
-import useCurrencyExchanger from './useCurrencyExchanger';
-import type { RateKey } from './types';
+import type { RateKey } from '@/shared/types';
 
-const CurrencyExchanger: FC<{ state: { initPair: RateKey } }> = ({
-  state: { initPair },
-}) => {
-  const state = useCurrencyExchanger({ pair: initPair });
+import { ConvertForm } from '@/widgets/ConvertForm';
+import { ResultWidget } from '@/widgets/ResultWidget';
+
+import useCurrencyExchanger from './useCurrencyExchanger';
+
+const CurrencyExchanger: FC<{
+  state: { initPair: RateKey; setPair: (p: RateKey) => void };
+}> = ({ state: { initPair, setPair } }) => {
+  const state = useCurrencyExchanger({ pair: initPair, setPair });
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[614px_auto] gap-[30px] items-start">
       <div className="sm:w-[614px]">

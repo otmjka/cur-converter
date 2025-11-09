@@ -1,10 +1,12 @@
-import type { ConvertFormState, ResultWidgetState } from '@/shared/types';
-
-// currency pair rate
-export type RateKey = { base: string; quote: string };
+import type {
+  ConvertFormState,
+  RateKey,
+  ResultWidgetState,
+} from '@/shared/types';
 
 type UseCurrencyExchangerParams = {
   pair: RateKey;
+  setPair: (p: RateKey) => void;
 };
 
 type UseCurrencyExchangerReturn = {

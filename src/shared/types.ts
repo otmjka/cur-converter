@@ -1,5 +1,7 @@
 import type { ConverterFormValues } from '@/types';
 
+export type RateKey = { base: string; quote: string };
+
 export type ConvertFormState = {
   value: ConverterFormValues;
   onChange: (values: ConverterFormValues) => void;
