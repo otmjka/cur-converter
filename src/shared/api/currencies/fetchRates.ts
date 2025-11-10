@@ -6,7 +6,6 @@ export const fetchRates = async (pair: {
   quote: string;
 }): Promise<RatesResponse> => {
   const { base, quote } = pair;
-  console.log(`fetchRates::: ${base} ${quote}`);
   const response = await fetch(
     `${apiUrls.fetchRates}?base=${base}&currencies=${quote}`,
   );

@@ -43,7 +43,6 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({
         return;
       }
 
-      console.log('!!!', values, formValue);
       setPair({
         pair: { base: values.base, quote: values.quote },
         amount: values.amount,
@@ -78,7 +77,7 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({
       onChange: debouncedOnChange,
     },
     resultWidget: {
-      isRateError,
+      isRateError: isRateError && !rate,
       result: result ? result.toFixed(2) : '',
       amountBase: formValue.amount,
       base: formValue.base,

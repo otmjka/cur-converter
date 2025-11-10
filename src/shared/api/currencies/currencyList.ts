@@ -7,6 +7,5 @@ export const currencyList = async (): Promise<CurrencyListResponse> => {
     throw new Error(`${response.status}`);
   }
   const data = await response.json();
-  console.log('fetched currencyList', data);
   return data;
 };

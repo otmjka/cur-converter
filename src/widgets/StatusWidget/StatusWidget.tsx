@@ -7,7 +7,6 @@ import { formatDate } from '@/shared/lib/formatDate';
 const StatusWidget: FC<{ pair: RateKey }> = ({ pair }) => {
   const widget = useCurrencyRate({ pair });
   const { responseData, refresh, isOnline } = widget;
-  console.log('###', widget);
   return (
     <div className="flex flex-col items-center xs:flex-row mb-[30px] xs:justify-center gap-[16px] xs:h-[23px]">
       <ConnectStatus isOnline={isOnline} />
