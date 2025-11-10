@@ -6,6 +6,7 @@ import { useCurrenciesInfo } from '@/shared/store/useCurrenciesInfo';
 import { currencySelectorMapper } from './currencySelectorMapper';
 import { getCurrencyInfo } from './getCurrencyInfo';
 import useDebounce from '@rooks/use-debounce';
+import { parseCurrency } from '@/shared/lib/currency';
 
 const useCurrencyExchanger: UseCurrencyExchanger = ({
   pair,
@@ -55,7 +56,7 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({
     values: ConverterFormValues,
   ) => void;
 
-  const amountNumber = parseFloat(formValue.amount);
+  const amountNumber = parseCurrency(formValue.amount);
   const result = rate ? rate * amountNumber : ``;
 
   const baseInfo = getCurrencyInfo(
