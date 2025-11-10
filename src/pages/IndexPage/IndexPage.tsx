@@ -2,9 +2,8 @@ import { type FC, Suspense, lazy } from 'react';
 
 import { H1 } from '@/shared/UiKit';
 import { useCurrencyPair } from '@/shared/store/useCurrencyPair';
-// import { CurrencyExchanger } from '@/features/CurrencyExchanger';
 
-import * as Parts from './IndexPage.parts';
+import * as Parts from './ui/IndexPage.parts';
 import { StatusWidget } from '@/widgets/StatusWidget';
 
 const CurrencyExchanger = lazy(() => import('@/features/CurrencyExchanger'));
@@ -15,19 +14,16 @@ const IndexPage: FC = () => {
     <Parts.Box>
       <div className="mb-[30px]">
         <H1 data-testid="cc-h1" children="Currency converter" />
-        <div className="mt-[10px] font-inter text-center text-14 tracking-tight text-balance text-neutral-500 leading-[17px]">
-          Get real-time exchange rates
-        </div>
+        <Parts.SubText children="Get real-time exchange rates" />
       </div>
       {pair && <StatusWidget pair={pair} />}
 
-      <Suspense fallback={<div>loading exchanger...</div>}>
+      <Suspense fallback={<Parts.WidgetLoader />}>
         {pair && amount && (
           <CurrencyExchanger state={{ amount, pair, setPair }} />
         )}
+        {!pair && <Parts.WidgetLoader />}
       </Suspense>
-
-      {!pair && 'loading...'}
     </Parts.Box>
   );
 };
