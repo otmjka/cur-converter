@@ -1,4 +1,5 @@
 export type ResultWidgetState = {
+  isRateError: boolean;
   result: string;
   amountBase: string;
   base: string;

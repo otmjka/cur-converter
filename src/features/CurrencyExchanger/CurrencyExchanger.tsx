@@ -8,9 +8,13 @@ import { ResultWidget } from '@/widgets/ResultWidget';
 import useCurrencyExchanger from './useCurrencyExchanger';
 
 const CurrencyExchanger: FC<{
-  state: { initPair: RateKey; setPair: (p: RateKey) => void };
-}> = ({ state: { initPair, setPair } }) => {
-  const state = useCurrencyExchanger({ pair: initPair, setPair });
+  state: {
+    pair: RateKey;
+    amount: string;
+    setPair: (p: { pair: RateKey; amount: string }) => void;
+  };
+}> = ({ state: { pair, amount, setPair } }) => {
+  const state = useCurrencyExchanger({ amount, pair, setPair });
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[614px_auto] gap-[30px] items-start">
       <div className="sm:w-[614px]">
