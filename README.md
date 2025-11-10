@@ -1,3 +1,7 @@
+# Convertation Currencies
+
+[DEMO link](https://otmjka.github.io/cur-converter/)
+
 ### To start locally:
 
 `npm i`
