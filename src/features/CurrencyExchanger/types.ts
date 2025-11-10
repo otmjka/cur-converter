@@ -6,7 +6,8 @@ import type { ResultWidgetState } from '@/widgets/ResultWidget';
 /* UseCurrencyExchanger */
 type UseCurrencyExchangerParams = {
   pair: RateKey;
-  setPair: (p: RateKey) => void;
+  amount: string;
+  setPair: (p: { pair: RateKey; amount: string }) => void;
 };
 
 type UseCurrencyExchangerReturn = {

@@ -5,8 +5,13 @@ import { useCurrencyRate } from '@/shared/store/useCurrencyRate';
 import { useCurrenciesInfo } from '@/shared/store/useCurrenciesInfo';
 import { currencySelectorMapper } from './currencySelectorMapper';
 import { getCurrencyInfo } from './getCurrencyInfo';
+import useDebounce from '@rooks/use-debounce';
 
-const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {
+const useCurrencyExchanger: UseCurrencyExchanger = ({
+  pair,
+  amount,
+  setPair,
+}) => {
   const currenciesInfo = useCurrenciesInfo();
 
   const currencySelectDialogItems = useMemo(
@@ -19,10 +24,10 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {
   const [formValue, setFormValue] = useState<ConverterFormValues>({
     base: pair.base,
     quote: pair.quote,
-    amount: '2',
+    amount,
   });
 
-  const { rate } = currencyRate;
+  const { rate, isError: isRateError } = currencyRate;
 
   // form value changed
   const onChangeHandler = useCallback(
@@ -37,24 +42,21 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {
         return;
       }
 
-      if (values.base !== formValue.base || values.quote !== formValue.quote) {
-        console.log('save new pair');
-        setPair({ base: values.base, quote: values.quote });
-      }
       console.log('!!!', values, formValue);
+      setPair({
+        pair: { base: values.base, quote: values.quote },
+        amount: values.amount,
+      });
       setFormValue(values);
     },
     [formValue, setPair],
   );
+  const debouncedOnChange = useDebounce(onChangeHandler, 250) as (
+    values: ConverterFormValues,
+  ) => void;
 
-  // 1(eur)/1(usd) = 1.08 = k. base/quote = k; k = rate
-  // quote = base / k
-  // 1(USD) = (1 / k)(EUR) =  (1 / 1.08)(EUR) = 0,92592593(EUR)
-
-  // base = k * quote
-  // EUR = USD * k = (1 * 1.08)(USD) = 1.08(USD)
-  const amount = parseFloat(formValue.amount);
-  const result = rate ? rate * amount : ``;
+  const amountNumber = parseFloat(formValue.amount);
+  const result = rate ? rate * amountNumber : ``;
 
   const baseInfo = getCurrencyInfo(
     currenciesInfo?.currencyInfoList,
@@ -72,9 +74,10 @@ const useCurrencyExchanger: UseCurrencyExchanger = ({ pair, setPair }) => {
 
       quoteInfo,
       value: formValue,
-      onChange: onChangeHandler,
+      onChange: debouncedOnChange,
     },
     resultWidget: {
+      isRateError,
       result: result ? result.toFixed(2) : '',
       amountBase: formValue.amount,
       base: formValue.base,

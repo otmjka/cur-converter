@@ -1,1 +1,3 @@
-export { default as CurrencyExchanger } from './CurrencyExchanger';
+import CurrencyExchanger from './CurrencyExchanger';
+
+export default CurrencyExchanger;

@@ -1,114 +1,94 @@
+### To start locally:
+
 `npm i`
 `npm run dev`
 
 ## Structure
 
-Used the [Feature-Sliced Design](https://feature-sliced.design/) an architectural methodology
+Entry point:
+
+```
+index.html
+├── src
+│   ├── main.tsx
+```
+
+structure via [FSD methodology]()
 
 ```
 ├── src
-│   ├── App
-│   ├── pages
-│   ├── features
-│   ├── widgets
-│   └── shared
+│   ├── App <-- App level logic, routing, configs
+│   ├── pages <-- Pages, index page, may be user page
 
-│   ├── tests
-│   ├── vite-env.d.ts
-│   ├── index.css
-│   ├── main.tsx
-
-
+│   ├── features <-- large entities, that can include several widgets, can used in pages
+│   ├── widgets <-- entities that can be used in features
+│   └── shared <-- common used utils, helpers, ui
 
 ├── shared
 │   │   ├── UiKit
 │   │   ├── api
-│   │   ├── components ! shadcn
-│   │   ├── lib ! shadcn
-│   │   ├── queryClient -> config
-│   │   ├── store +
-│   │   └── types +
-
+│   │   ├── components
+│   │   ├── lib
+│   │   ├── queryClient
+│   │   ├── store
+│   │   └── types
 ```
 
-TODO: remove
+### UI: [shadcn](https://ui.shadcn.com/)
 
 ```
 ├── src
-│   ├── App
-│   ├── pages
-│   ├── features
-│   ├── widgets
-│   └── shared
-│   ├── __tests__
-│   ├── UiKit -> TODO: move to shared/UiKit
-│   ├── components -> TODO: move to shared/components/ui
-│   ├── index.css
-│   ├── lib -> TODO: move to shared/lib
-│   ├── main.tsx
-│   ├── mocks
-│   ├── setupTests.ts
-│   ├── types.ts
-│   ├── vite-env.d.ts
+├── shared
+│   │   ├── components
 ```
 
-## change log
+Custom components:
 
-inter font
-TODO: optimize
-TODO: make as default color 950
+```
+├── src
+├── shared
+│   │   ├── UiKit
+```
 
-12px
-#737373 neutral/500
-weight 400
-weight semi-bold 600
+### Routing
 
-#0A0A0A neutral/950
-600
+[React Router](https://reactrouter.com/)
 
-500
+### Handling date
 
----
+manage cache, interval requests, handling errors, fetching data
+via [Tan Query](https://tanstack.com/query/latest)
 
-14px
+setup TAN Query to persist data in localStorage via `@tanstack/query-async-storage-persister` in
 
----
+`src/shared/queryClient/queryClient.ts`
 
-18px
-600 semibold
-#0A0A0A
+#### low level api methods:
 
----
+```
+├── src
+├── shared
+│   │   ├── api
+```
 
-24px
-700
-#0A0A0A
+```ts
+fetchRates: 'https://api.fxratesapi.com/latest',
+currencyList: 'https://api.fxratesapi.com/currencies',
+```
 
----
+#### Tan Query queries:
 
-## Colors
+```
+├── src
+├── shared
+│   │   ├── store
+```
 
-neutral/500
-#737373
+### Bundling, Code quality
 
-blue/50
-#EFF6FF
+- `Vite` as bundler
+- `Husky` triggered on commit, starts lint, tests, build
+- eslint
+- prettier
 
-blue/200
-#BEDBFF
-
-blue/700
-#1447E6
-
-green/200
-#B9F8CF
-
-green/700
-#008236
-
-Sizes
-12px
-14px
-18px
-24px
-32px
+lazy loading `CurrencyExchanger`
